@@ -20,6 +20,8 @@ namespace realstate
     {
 
         databaseManager dbmanager = new databaseManager();
+        Classes.functions FUNS = new Classes.functions();
+        Classes.FontClass fontclass = new Classes.FontClass();
         ListOfAdds.Datum obj = new ListOfAdds.Datum();
         CatsAndAreasObject CATS = null;
         public manageFile()
@@ -28,31 +30,8 @@ namespace realstate
             this.WindowState = FormWindowState.Maximized;
         }
 
-        private static Random random = new Random();
-        public static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-        private List<Control> GetAllControls(Control container, List<Control> list)
-        {
-            foreach (Control c in container.Controls)
-            {
-
-                if (c.Controls.Count > 0)
-                    list = GetAllControls(c, list);
-                else
-                    list.Add(c);
-            }
-
-            return list;
-        }
-        private List<Control> GetAllControls(Control container)
-        {
-            return GetAllControls(container, new List<Control>());
-        }
-
+      
+        
 
         public string SetDropDownValue(string value, string collection)
         {
@@ -290,7 +269,7 @@ namespace realstate
      
         private void manageFile_Load(object sender, EventArgs e)
         {
-            List<Control> allControls = GetAllControls(this);
+            List<Control> allControls = fontclass.GetAllControls(this);
             allControls.ForEach(k => k.Font = GlobalVariable.headerlistFONT);
 
             if (GlobalVariable.isadmin == "1")
@@ -706,13 +685,14 @@ namespace realstate
                 //در اینجا لیست آیتم ها به جای اینکه از فایل خوانده شود باید از دیتا بیس خوانده شود
                 
                 List<ListOfAdds.item> list = new List<ListOfAdds.item>();
-                string id = "";
-                id = ID.Text;
-                ListOfAdds.item model = list.Where(x => x.ID == id).FirstOrDefault();
+                long id = 0;
+                
+                id =Convert.ToInt64(ID.Text);
+                ListOfAdds.item model = list.Where(x => x.number == id).FirstOrDefault();
                 if (model == null)
                 {
                     model = new ListOfAdds.item();
-                    id = RandomString(10);
+                    id =Convert.ToInt64(FUNS.RandomStringDIGIT(7));
                 }
                 List<string> PHNS = new List<string>();
                 PHNS.Add(phone1.Text);
@@ -735,7 +715,7 @@ namespace realstate
                 model.hasEstakhr = hasEstakhr.Checked ? "1" : "0";
                 model.hasJakoozi = hasJakoozi.Checked ? "1" : "0";
                 model.hasSauna = hasSauna.Checked ? "1" : "0";
-                model.ID = id;
+                model.number = id;
                 model.isEjare = isEjare.Checked ? "1" : "0";
                 model.isForoosh = isForoosh.Checked ? "1" : "0";
                 model.isMoaveze = isMoaveze.Checked ? "1" : "0";
@@ -769,9 +749,9 @@ namespace realstate
                 model.tarakom = tarakom.Text;
                 model.title = title.Text;
                 model.toole_bar = toole_bar.Text;
-                model.total_floor = total_floor.Text;
-                model.total_vahed = total_vahed.Text;
-                model.vahed_per_floor = vahed_per_floor.Text;
+                model.total_floor = Convert.ToInt64(total_floor.Text);
+                model.total_vahed = Convert.ToInt64(total_vahed.Text);
+                model.vahed_per_floor = Convert.ToInt64(vahed_per_floor.Text);
 
                 model.zirzamin = zirzamin.Text;
                 model.tabaghe1 = Convert.ToInt32(tabaghe1.Text);

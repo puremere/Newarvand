@@ -31,18 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radPanel2 = new Telerik.WinControls.UI.RadPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.loadingIMG = new System.Windows.Forms.PictureBox();
-            this.radPanel5 = new Telerik.WinControls.UI.RadPanel();
-            this.ip = new System.Windows.Forms.TextBox();
             this.radPanel4 = new Telerik.WinControls.UI.RadPanel();
             this.password = new System.Windows.Forms.TextBox();
             this.radPanel3 = new Telerik.WinControls.UI.RadPanel();
             this.username = new System.Windows.Forms.TextBox();
             this.confirm = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
@@ -51,8 +47,6 @@
             this.radPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingIMG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).BeginInit();
-            this.radPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).BeginInit();
             this.radPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel3)).BeginInit();
@@ -74,15 +68,12 @@
             // radPanel2
             // 
             this.radPanel2.BackColor = System.Drawing.Color.Black;
-            this.radPanel2.Controls.Add(this.checkBox1);
             this.radPanel2.Controls.Add(this.pictureBox1);
             this.radPanel2.Controls.Add(this.label1);
             this.radPanel2.Controls.Add(this.loadingIMG);
-            this.radPanel2.Controls.Add(this.radPanel5);
             this.radPanel2.Controls.Add(this.radPanel4);
             this.radPanel2.Controls.Add(this.radPanel3);
             this.radPanel2.Controls.Add(this.confirm);
-            this.radPanel2.Controls.Add(this.label4);
             this.radPanel2.Controls.Add(this.label3);
             this.radPanel2.Controls.Add(this.label2);
             this.radPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -92,19 +83,6 @@
             this.radPanel2.Size = new System.Drawing.Size(760, 430);
             this.radPanel2.TabIndex = 99;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radPanel2.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(495, 310);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox1.Size = new System.Drawing.Size(104, 17);
-            this.checkBox1.TabIndex = 108;
-            this.checkBox1.Text = "ورود به عنوان ادمین";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // pictureBox1
             // 
@@ -143,38 +121,11 @@
             this.loadingIMG.TabStop = false;
             this.loadingIMG.Visible = false;
             // 
-            // radPanel5
-            // 
-            this.radPanel5.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.radPanel5.Controls.Add(this.ip);
-            this.radPanel5.Location = new System.Drawing.Point(160, 240);
-            this.radPanel5.Margin = new System.Windows.Forms.Padding(4);
-            this.radPanel5.Name = "radPanel5";
-            this.radPanel5.Size = new System.Drawing.Size(463, 44);
-            this.radPanel5.TabIndex = 103;
-            ((Telerik.WinControls.UI.RadPanelElement)(this.radPanel5.GetChildAt(0))).BackColor = System.Drawing.SystemColors.ScrollBar;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radPanel5.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            // 
-            // ip
-            // 
-            this.ip.AcceptsTab = true;
-            this.ip.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ip.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.ip.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ip.Location = new System.Drawing.Point(33, 6);
-            this.ip.Margin = new System.Windows.Forms.Padding(4);
-            this.ip.Name = "ip";
-            this.ip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ip.Size = new System.Drawing.Size(400, 13);
-            this.ip.TabIndex = 3;
-            this.ip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // radPanel4
             // 
             this.radPanel4.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.radPanel4.Controls.Add(this.password);
-            this.radPanel4.Location = new System.Drawing.Point(160, 163);
+            this.radPanel4.Location = new System.Drawing.Point(160, 206);
             this.radPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.radPanel4.Name = "radPanel4";
             this.radPanel4.Size = new System.Drawing.Size(463, 44);
@@ -204,7 +155,7 @@
             this.radPanel3.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.radPanel3.Controls.Add(this.username);
             this.radPanel3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radPanel3.Location = new System.Drawing.Point(160, 81);
+            this.radPanel3.Location = new System.Drawing.Point(160, 124);
             this.radPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.radPanel3.Name = "radPanel3";
             this.radPanel3.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
@@ -245,27 +196,13 @@
             this.confirm.UseVisualStyleBackColor = false;
             this.confirm.Click += new System.EventHandler(this.confirm_Click);
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("B Nazanin", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label4.ForeColor = System.Drawing.Color.LightGray;
-            this.label4.Location = new System.Drawing.Point(539, 211);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 20);
-            this.label4.TabIndex = 0;
-            this.label4.Text = ": آدرس سرور";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("B Nazanin", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.label3.ForeColor = System.Drawing.Color.LightGray;
-            this.label3.Location = new System.Drawing.Point(556, 133);
+            this.label3.Location = new System.Drawing.Point(556, 176);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 20);
@@ -279,7 +216,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Nazanin", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.label2.ForeColor = System.Drawing.Color.LightGray;
-            this.label2.Location = new System.Drawing.Point(547, 51);
+            this.label2.Location = new System.Drawing.Point(547, 94);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 20);
@@ -306,9 +243,6 @@
             this.radPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingIMG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).EndInit();
-            this.radPanel5.ResumeLayout(false);
-            this.radPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).EndInit();
             this.radPanel4.ResumeLayout(false);
             this.radPanel4.PerformLayout();
@@ -325,17 +259,13 @@
         private Telerik.WinControls.UI.RadPanel radPanel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox ip;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox password;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button confirm;
         private Telerik.WinControls.UI.RadPanel radPanel3;
         private System.Windows.Forms.TextBox username;
-        private Telerik.WinControls.UI.RadPanel radPanel5;
         private Telerik.WinControls.UI.RadPanel radPanel4;
         private System.Windows.Forms.PictureBox loadingIMG;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -3004,7 +3004,7 @@
             this.Name = "search";
             this.Text = "search";
             this.Load += new System.EventHandler(this.search_Load);
-            this.Shown += new System.EventHandler(this.search_Shown);
+           // this.Shown += new System.EventHandler(this.search_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.mainpanel)).EndInit();
             this.mainpanel.ResumeLayout(false);
             this.mainpanel.PerformLayout();

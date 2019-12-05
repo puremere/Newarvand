@@ -27,7 +27,7 @@ using System.Drawing.Text;
 using System.Globalization;
 using Telerik.WinControls.Layouts;
 
-using Classes;
+using realstate.Classes;
 
 
 
@@ -39,58 +39,45 @@ namespace realstate
 
     public partial class main : Form
     {
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
-            IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
 
-        private PrivateFontCollection fonts = new PrivateFontCollection();
-        private List<Control> GetAllControls(Control container)
-        {
-            return GetAllControls(container, new List<Control>());
-        }
-        private List<Control> GetAllControls(Control container, List<Control> list)
-        {
-            foreach (Control c in container.Controls)
-            {
-
-                if (c.Controls.Count > 0)
-                    list = GetAllControls(c, list);
-                else
-                    list.Add(c);
-            }
-
-            return list;
-        }
-        public void initFont()
-        {
-
-            byte[] fontData = Properties.Resources.IRANSans_FaNum_;
-            IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
-            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
-            uint dummy = 0;
-            fonts.AddMemoryFont(fontPtr, Properties.Resources.IRANSans_FaNum_.Length);
-            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.IRANSans_FaNum_.Length, IntPtr.Zero, ref dummy);
-            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
-            GlobalVariable.headerlistFONT = new Font(fonts.Families[0], 9.0F, System.Drawing.FontStyle.Regular);
-            GlobalVariable.headerlistFONTsmall = new Font(fonts.Families[0], 8.0F, System.Drawing.FontStyle.Regular);
-            GlobalVariable.headerlistFONTBold = new Font(fonts.Families[0], 11.0F, System.Drawing.FontStyle.Bold);
-
-
-            List<Control> allControls = GetAllControls(this);
-            allControls.ForEach(k => k.Font = GlobalVariable.headerlistFONT);
-
-        }
+        FontClass fontclass = new FontClass();
        
         public main()
         {
-            initFont();
+           
             InitializeComponent();
+          
         }
 
         private void addfileBotton_Click(object sender, EventArgs e)
         {
             manageFile managefile = new manageFile();
             managefile.Show();
+        }
+
+        private void getDateForm_Click(object sender, EventArgs e)
+        {
+            getData getdata = new getData();
+            getdata.Show();
+           
+        }
+
+        private void searchFiltButt_Click(object sender, EventArgs e)
+        {
+
+            search srch = new search();
+            srch.Show();
+            //fileList filelist = new fileList();
+            //filelist.Show();
+        }
+
+        private void main_Load(object sender, EventArgs e)
+        {
+            List<Control> allControls = fontclass.GetAllControls(this);
+            allControls.ForEach(k => k.Font = GlobalVariable.headerlistFONT);
+            this.CenterToScreen();
+            dataLable.Text = dateTimeConvert.ToPersianDateString(DateTime.Now);
+
         }
     }
 }

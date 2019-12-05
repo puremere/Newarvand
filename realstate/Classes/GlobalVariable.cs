@@ -89,6 +89,8 @@ namespace realstate
        
         public static string result { get; set; }
         public static int portlimit { get; set; }
+
+        
     }
 
 }

@@ -107,6 +107,21 @@
   <ItemGroup>
     <Compile Include="Classes\Class.cs" />
     <Compile Include="Classes\databaseManager.cs" />
+    <Compile Include="Classes\dateTimeConvert.cs" />
+    <Compile Include="Classes\FontClass.cs" />
+    <Compile Include="Classes\functions.cs" />
+    <Compile Include="fileList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fileList.Designer.cs">
+      <DependentUpon>fileList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="getData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="getData.Designer.cs">
+      <DependentUpon>getData.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListOfAdds\lisener.cs" />
     <Compile Include="ListOfAdds\Context.cs" />
     <Compile Include="main.cs">
@@ -153,7 +168,7 @@
     <Compile Include="search.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="search.Designer.cs">
+    <Compile Include="search.designer.cs">
       <DependentUpon>search.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings1.Designer.cs">
@@ -161,6 +176,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="fileList.resx">
+      <DependentUpon>fileList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="getData.resx">
+      <DependentUpon>getData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +382,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\connect.png" />
     <Content Include="search_background.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

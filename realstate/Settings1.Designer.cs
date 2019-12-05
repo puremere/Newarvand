@@ -117,5 +117,27 @@ namespace realstate {
                 this["ip"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime DownloadDateFrom {
+            get {
+                return ((global::System.DateTime)(this["DownloadDateFrom"]));
+            }
+            set {
+                this["DownloadDateFrom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime DownloadDateTo {
+            get {
+                return ((global::System.DateTime)(this["DownloadDateTo"]));
+            }
+            set {
+                this["DownloadDateTo"] = value;
+            }
+        }
     }
 }

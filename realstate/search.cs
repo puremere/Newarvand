@@ -1,11 +1,13 @@
 ﻿using Classes;
 using Newtonsoft.Json;
+using realstate.ListOfAdds;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -13,104 +15,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Telerik.WinControls;
+using realstate.Classes;
 
 
 namespace realstate
 {
     public partial class search : Form
     {
-
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
-            IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
-        private PrivateFontCollection fonts = new PrivateFontCollection();
-
-        Font myFont;
+        BackgroundWorker getDataBackGroundWorker = new BackgroundWorker();
+        CatsAndAreasObject log = new CatsAndAreasObject();
         private Bitmap renderBmp;
+        databaseManager manager = new databaseManager();
+        fileList filelist = null;
+        FontClass fontclass = new FontClass();
 
-        public override Image BackgroundImage
-        {
-            set
-            {
-                Image baseImage = value;
-                renderBmp = new Bitmap(baseImage.Width, baseImage.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-                Graphics g = Graphics.FromImage(renderBmp);
-                g.DrawImage(baseImage, 0, 0, baseImage.Width, baseImage.Height);
-                g.Dispose();
-            }
-            get
-            {
-                return renderBmp;
-            }
-        }
-      
+
+
+
         public search()
         {
             InitializeComponent();
     
 
             this.refresh.Visible = false;
-            this.MouseClick += mouseClick;
+           // this.MouseClick += mouseClick;
             this.DoubleBuffered = true;
 
         }
-        void search_Shown(object sender, EventArgs e)
-        {
-          //  this.BackgroundImage = global::realstate.Properties.Resources.sa;
-            // Do blocking stuff here
-        }
-
-        private void mouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (!(mantaghe_name.Focused || mantagheNameText.Focused))
-                {
-                    paneloflist.Visible = false;
-                }
-            }
-        }
-        CatsAndAreasObject log = new CatsAndAreasObject();
-
-        private List<Control> GetAllControls(Control container, List<Control> list)
-        {
-            foreach (Control c in container.Controls)
-            {
-
-                if (c.Controls.Count > 0)
-                    list = GetAllControls(c, list);
-                else
-                    list.Add(c);
-            }
-
-            return list;
-        }
-        private List<Control> GetAllControls(Control container)
-        {
-            return GetAllControls(container, new List<Control>());
-        }
-        public void initFont()
-        {
-            byte[] fontData = Properties.Resources.IRANSans_FaNum_;
-            IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
-            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
-            uint dummy = 0;
-            fonts.AddMemoryFont(fontPtr, Properties.Resources.IRANSans_FaNum_.Length);
-            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.IRANSans_FaNum_.Length, IntPtr.Zero, ref dummy);
-            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
-            GlobalVariable.headerlistFONT = new Font(fonts.Families[0], 10.0F, System.Drawing.FontStyle.Regular);
-            GlobalVariable.headerlistFONTsmall = new Font(fonts.Families[0], 8.0F, System.Drawing.FontStyle.Regular);
-            GlobalVariable.headerlistFONTBold = new Font(fonts.Families[0], 11.0F, System.Drawing.FontStyle.Bold);
-
-            List<Control> allControls = GetAllControls(this);
-            allControls.ForEach(k => k.Font = GlobalVariable.headerlistFONT);
-
-        }
-
+       
         private void search_Load(object sender, EventArgs e)
         {
             this.MaximizeBox = true;
-            initFont();
+            List<Control> allControls = fontclass.GetAllControls(this);
+            allControls.ForEach(k => k.Font = GlobalVariable.headerlistFONT);
 
             if (GlobalVariable.isadmin == "1")
             {
@@ -581,23 +518,18 @@ namespace realstate
 
         private void label59_Click(object sender, EventArgs e)
         {
-            foreach (Form item in Application.OpenForms)
-                        {
-                            if (item.Name == "main")
-                            {
-                                item.Close();
-                                break;
-                            }
-                        }
             getDataFromServer();
         }
         private void getDataFromServer()
         {
 
-            BackgroundWorker getDataBackGroundWorker = new BackgroundWorker();
+            refresh.Visible = true;
             getDataBackGroundWorker.WorkerSupportsCancellation = true;
             getDataBackGroundWorker.DoWork += new DoWorkEventHandler(getDataBackGroundWorker_do);
             getDataBackGroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(getDataBackGroundWorker_done);
+
+
+
 
             try
             {
@@ -671,22 +603,14 @@ namespace realstate
                 model.parking = parking.Checked ? "1" : "";
                 model.labi = labi.Checked ? "1" : "";
                 model.parking = parking.Checked ? "1" : "";
-
                 model.address = address.Text;
                 model.desc = desc.Text;
                 model.tabaghe = tabaghe.Text;
                 GlobalVariable.searchTabghe = tabaghe.Text;
                 model.phones = phones.Text;
                 model.malek = malek.Text;
-               // model.wc = wc.Text;
-
-
                 model.zirbana_from = zirbana_from.Text;
                 model.zirbana_to = zirbana_to.Text;
-                //if (zirbana_to.Text !=  "")
-                //{
-                //    model.zirbana_from = "0";
-                //}
                 model.senn_from = senn_from.Text;
                 model.senn_to = senn_to.Text;
                 if (senn_from.Text == "" && senn_to.Text != "")
@@ -700,51 +624,23 @@ namespace realstate
                     model.senn_to = "1000";
                 }
                 model.masahat_from = masahat_from.Text;
-                //if (masahat_from.Text == "")
-                //{
-                //    model.masahat_from = "1";
-                //}
                 model.masahat_to = masahat_to.Text;
                 model.id_from = id_from.Text;
                 model.id_to = id_to.Text;
                 model.ID = ID.Text;
                 model.tabaghe_from = tabaghe_from.Text;
-                //if (tabaghe_from.Text == "")
-                //{
-                //    model.tabaghe_from = "0";
-                //}
                 model.tabaghe_to = tabaghe_to.Text;
                 model.rahn_from = rahn_from.Text;
-                //if (rahn_from.Text == "")
-                //{
-                //    model.rahn_from = "0";
-                //}
                 model.ejare_from = ejare_from.Text;
-                //if (ejare_from.Text == "")
-                //{
-                //    model.ejare_from = "0";
-                //}
                 model.rahn_to = rahn_to.Text;
                 model.ejare_to = ejare_to.Text;
                 model.metri_from = metri_from.Text;
-                //if (metri_from.Text == "")
-                //{
-                //    model.metri_from = "0";
-                //}
                 model.metri_to = metri_to.Text;
                 model.total_price_from = total_price_from.Text;
-                //if (total_price_from.Text == "")
-                //{
-                //    model.total_price_from = "0";
-                //}
                 model.total_price_to = total_price_to.Text;
                 model.date_from = date_from.Text;
                 model.date_to = date_to.Text;
                 model.bed_from = bed_from.Text;
-                //if (bed_from.Text == "")
-                //{
-                //    model.bed_from = "0";
-                //}
                 model.bed_to = bed_to.Text;
 
 
@@ -753,7 +649,7 @@ namespace realstate
                 GlobalVariable.lastSearchModel = model;
 
                 getDataBackGroundWorker.RunWorkerAsync(argument: str);
-                refresh.Visible = true;
+               
             }
             catch (Exception)
             {
@@ -764,163 +660,233 @@ namespace realstate
 
 
         }
-        private void getDataBackGroundWorker_done(object sender, RunWorkerCompletedEventArgs e)
-        {
-            try
-            {
-                if (e.Result == "error")
-                {
-                    refresh.Visible = false;
-                }
-                else
-                {
-                   
-                    ListOfAdds.RootObject log = JsonConvert.DeserializeObject<ListOfAdds.RootObject>(GlobalVariable.result);
-
-                    if (log == null)
-                    {
-                        List<Form> openForms = new List<Form>();
-
-                        foreach (Form f in Application.OpenForms)
-                            openForms.Add(f);
-
-                        foreach (Form f in openForms)
-                        {
-                            if (f.Name != "Form3")
-                                f.Close();
-                        }
-                        
-                        return;
-                    }
-                    if (GlobalVariable.RowIDList.Count()>0)
-                    {
-                        GlobalVariable.RowIDList.Clear();
-                    }
-                   
-                    foreach (var item in log.result.data)
-                    {
-                        GlobalVariable.RowIDList.Add(item.ID);
-                    }
-                    GlobalVariable.fromwhere = "main";
-
-                    main main = new main();
-                    Control clt0 = main.Controls.Find("flowLayoutPanel1", true).First();
-                    clt0.BackgroundImage = null;
-
-                    Control clt = main.Controls.Find("radListView1", true).First();
-                    clt.Visible = true;
-
-                    Control clt2 = main.Controls.Find("searchpanel", true).First();
-                    clt2.Visible = true;
-
-                    Control clt3 = main.Controls.Find("dissconnect", true).First();
-                    clt3.Visible = false;
-
-                    Control clt4 = main.Controls.Find("connect", true).First();
-                    clt4.Visible = true;
-                    
-
-                    main.Show();
-                    //this.Close();
-                    refresh.Visible = false;
-
-
-                }
-            }
-            catch (Exception error )
-            {
-
-                MessageBox.Show("موردی وجود ندارد");
-                refresh.Visible = false;
-            }
-
-
-
-        }
+     
         void getDataBackGroundWorker_do(object sender, DoWorkEventArgs e)
         {
 
 
             string query = (string)e.Argument;
-            // فعلاً پورت 8001 باشه
-            int port = 8001;
-            if (GlobalVariable.port != 0)
-            {
-                port = GlobalVariable.port;
-            }
-
-            TcpClient tcpclnt = new TcpClient();
-
-            string ip = Settings1.Default.ServerIP;
-            if (GlobalVariable.serverIP != null)
-            {
-                ip = GlobalVariable.serverIP;
-            }
-            try
-            {
-                tcpclnt.Connect(ip, port);
-            }
-            catch (Exception)
-            {
-
-                MessageBox.Show("خطا در اتصال به سرور");
-                e.Result = "error";
-                tcpclnt.Close();
-                return;
-            }
+            string S = "";
 
 
             try
             {
-                // use the ipaddress as in the server program
-                Console.WriteLine("Connected with port" + port.ToString());
-                //Console.Write("Enter the string to be transmitted : ");
+                CatsAndAreasObject CATS = new CatsAndAreasObject();
+                try
+                {
+                    CATS = JsonConvert.DeserializeObject<CatsAndAreasObject>(GlobalVariable.newCatsAndAreas);
+                }
+                catch
+                {
 
-                //String str = Console.ReadLine();
+                    CATS = GlobalVariable.catsAndAreas;
+                }
+                List<gridVM> list = new List<gridVM>();
+                foreach (var item in manager.getList(query, S))
+                {
+                    if (GlobalVariable.searchTabghe == "")
+                    {
+                        GlobalVariable.searchTabghe = "1";
+                    }
+                    string tabaghe = GlobalVariable.searchTabghe;
+                    string fullprice = item.tabaghe_1_total_price.ToString();
+                    string metriprice = item.tabaghe_1_metri.ToString();
+                    string rahnprice = item.tabaghe_1_rahn.ToString();
+                    string ejareprice = item.tabaghe_1_ejare.ToString();
+                    string tabagh = item.tabaghe1.ToString();
+                    string kha = item.bed1.ToString();
+                    string zirban = item.zirbana1.ToString();
+                    string tb1 = item.tabaghe1.ToString();
+                    string tb2 = item.tabaghe2.ToString();
+                    string tb3 = item.tabaghe3.ToString();
 
-                Stream stm = tcpclnt.GetStream();
-                Encoding utf8 = Encoding.UTF8;
-                // ASCIIEncoding asen = new ASCIIEncoding();
-                byte[] ba = utf8.GetBytes(query);
-                Console.WriteLine("Transmitting.....");
+                    if (tb1 == tabaghe)
+                    {
+                        fullprice = item.tabaghe_1_total_price.ToString();
+                        metriprice = item.tabaghe_1_metri.ToString();
+                        rahnprice = item.tabaghe_1_rahn.ToString();
+                        ejareprice = item.tabaghe_1_ejare.ToString();
+                        tabagh = item.tabaghe1.ToString();
+                        kha = item.bed1.ToString();
+                        zirban = item.zirbana1.ToString();
+                    }
+                    if (tb2 == tabaghe)
+                    {
+                        fullprice = item.tabaghe_2_total_price.ToString();
+                        metriprice = item.tabaghe_2_metri.ToString();
+                        rahnprice = item.tabaghe_2_rahn.ToString();
+                        ejareprice = item.tabaghe_2_ejare.ToString();
+                        tabagh = item.tabaghe2.ToString();
+                        kha = item.bed2.ToString();
+                        zirban = item.zirbana2.ToString();
+                    }
+                    if (tb3 == tabaghe)
+                    {
+                        fullprice = item.tabaghe_3_total_price.ToString();
+                        metriprice = item.tabaghe_3_metri.ToString();
+                        rahnprice = item.tabaghe_3_rahn.ToString();
+                        ejareprice = item.tabaghe_3_ejare.ToString();
+                        tabagh = item.tabaghe3.ToString();
+                        kha = item.bed3.ToString();
+                        zirban = item.zirbana3.ToString();
+                    }
 
-                stm.Write(ba, 0, ba.Length);
-                string json = "";
 
-                const int blockSize = 30000000;
-                byte[] buffer = new byte[blockSize];
-                int bytesRead;
-                stm.Read(buffer, 0, buffer.Length);
-                json = utf8.GetString(buffer);
-                //while ((bytesRead = stm.Read(buffer, 0, buffer.Length)) > 0)
-                //{
-                //    for (int i = 0; i < bytesRead; i++)
-                //    {
-                //        json = json + Convert.ToChar(buffer[i]);
-                //    }
-                //}
+                    string serverid = item.ID.ToString();
+                    string date = item.date_updated.ToString();
+                    string address = item.address.ToString();
+                    string owner = item.malek.ToString();
+                    string senn = item.senn == 0 ? "-" : (from q in CATS.result.senn
+                                                          where q.ID == item.senn.ToString()
+                                                          select q.title).First();
+
+                    string melkkind = "";
+
+                    if (item.maghaze != null)
+                    {
+                        melkkind = melkkind + "مغازه،";
+                    }
+                    if (item.apartment != null)
+                    {
+                        melkkind = melkkind + "آپارتمان،";
+                    }
+                    if (item.villa != null)
+                    {
+                        melkkind = melkkind + "ویلا،";
+                    }
+                    if (item.mostaghellat != null)
+                    {
+                        melkkind = melkkind + "مستغلات،";
+                    }
+                    if (item.kolangi != null)
+                    {
+                        melkkind = melkkind + "کلنگی،";
+                    }
+                    if (item.office != null)
+                    {
+                        melkkind = melkkind + "دفتر،";
+                    }
+                    if (melkkind.Length > 0)
+                    {
+                        melkkind = melkkind.Remove(melkkind.Length - 1, 1);
+                    }
+
+                    string Dealkind = "";
+                    if (Convert.ToInt32(item.isForoosh.ToString()) > 0)
+                    {
+                        Dealkind = Dealkind + "فروش،";
+                    }
+                    if (Convert.ToInt32(item.isRahn.ToString()) > 0)
+                    {
+                        Dealkind = Dealkind + "رهن،";
+                    }
+                    if (Convert.ToInt32(item.isEjare.ToString()) > 0)
+                    {
+                        Dealkind = Dealkind + "اجاره،";
+                    }
+                    if (Dealkind.Length > 0)
+                    {
+                        Dealkind = Dealkind.Remove(Dealkind.Length - 1, 1);
+                    }
+
+
+                    string totalrahn = item.isForoosh.ToString() == "1" ? fullprice : rahnprice;
+                    string metriejare = item.isForoosh.ToString() == "1" ? metriprice : ejareprice;
+
+
+                    string Rtabaghe = tabagh;
+                    string khab = kha;
+                    string zirbana = zirban;
 
 
 
-                GlobalVariable.result = json;
+                    bool mycheckbox = false;
+                    totalrahn = totalrahn.Replace(".", "");
+                    if (totalrahn == "0")
+                    {
+                        totalrahn = "-";
+                    }
+                    else if (Convert.ToInt64(totalrahn) > 0)
+                    {
+                        string mytotal = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Convert.ToInt64(totalrahn));
+                        totalrahn = mytotal;
+                    }
+                    else if (totalrahn == "-1")
+                    {
+                        totalrahn = "توافقی";
+                    }
+                    else if (totalrahn == "-2")
+                    {
+                        totalrahn = "رایگان";
+                    }
+
+                    metriejare = metriejare.Replace(".", "");
+                    if (Convert.ToInt64(metriejare) == 0)
+                    {
+                        metriejare = "-";
+                    }
+                    else if (Convert.ToInt64(metriejare) > 0)
+                    {
+                        string mymetriejare = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Convert.ToInt64(metriejare));
+                        metriejare = mymetriejare;
+                    }
+                    else if (metriejare == "-1")
+                    {
+                        metriejare = "توافقی";
+                    }
+                    else if (metriejare == "-2")
+                    {
+                        metriejare = "رایگان";
+                    }
+                    if (GlobalVariable.temporaryOwnList.Contains(serverid + ","))
+                    {
+                        mycheckbox = true;
+                    }
+                    gridVM newitem = new gridVM()
+                    {
+                        Address = item.address,
+                        bed = kha,
+                        codegrid = item.number.ToString(),
+                        dategrid = dateTimeConvert.ToPersianDateString(item.date_updated),
+                        ejare_metri = metriejare,
+                        floorgrid = tabagh,
+                        kindgrid = Dealkind,
+                        typegrid = melkkind,
+                        ownergrid = item.malek,
+                        rahn_total = totalrahn,
+                        zirbana = zirban,
+                        checkbox = mycheckbox,
+                        Senn = senn
+
+                    };
+                    list.Add(newitem);
+                }
+
+                string FILELIST = JsonConvert.SerializeObject(list);
+                e.Result = FILELIST;
 
 
-
-                tcpclnt.Close();
 
 
             }
             catch (Exception)
             {
-
-                MessageBox.Show("خطا در ارتباط با سرور");
-
-                tcpclnt.Close();
-                return;
                 e.Result = "error";
             }
         }
-
+        private void getDataBackGroundWorker_done(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result.ToString() == "error")
+            {
+                refresh.Visible = false;
+            }
+            else
+            {
+                filelist = new fileList(e.Result.ToString());
+                filelist.Show();
+                refresh.Visible = false;
+            }
+        }
 
 
 
@@ -1241,25 +1207,25 @@ namespace realstate
         private void label58_Click(object sender, EventArgs e)
         {
             GlobalVariable.result = null;
-            main main = new main();
-           // main.wishfromsearch();
+            main form1 = new main();
+           // form1.wishfromsearch();
             GlobalVariable.fromwhere = "main";
 
 
-            Control clt0 = main.Controls.Find("flowLayoutPanel1", true).First();
+            Control clt0 = form1.Controls.Find("flowLayoutPanel1", true).First();
             clt0.BackgroundImage = null;
-            Control clt = main.Controls.Find("radListView1", true).First();
+            Control clt = form1.Controls.Find("radListView1", true).First();
             clt.Visible = true;
 
-            Control clt2 = main.Controls.Find("searchpanel", true).First();
+            Control clt2 = form1.Controls.Find("searchpanel", true).First();
             clt2.Visible = true;
 
-            Control clt3 = main.Controls.Find("dissconnect", true).First();
+            Control clt3 = form1.Controls.Find("dissconnect", true).First();
             clt3.Visible = false;
 
-            Control clt4 = main.Controls.Find("connect", true).First();
+            Control clt4 = form1.Controls.Find("connect", true).First();
             clt4.Visible = true;
-            main.Show();
+            form1.Show();
 
         }
 
@@ -1285,5 +1251,31 @@ namespace realstate
                 
             }
         }
+
+        public override Image BackgroundImage
+        {
+            set
+            {
+                Image baseImage = value;
+                renderBmp = new Bitmap(baseImage.Width, baseImage.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
+                g.DrawImage(baseImage, 0, 0, baseImage.Width, baseImage.Height);
+                g.Dispose();
+            }
+            get
+            {
+                return renderBmp;
+            }
+        }
+        //private void mouseClick(object sender, MouseEventArgs e)
+        //{
+        //    if (e.Button == MouseButtons.Left)
+        //    {
+        //        if (!(mantaghe_name.Focused || mantagheNameText.Focused))
+        //        {
+        //            paneloflist.Visible = false;
+        //        }
+        //    }
+        //}
     }
 }

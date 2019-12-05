@@ -1294,7 +1294,7 @@
             this.radPanel9.BackColor = System.Drawing.Color.White;
             this.radPanel9.Controls.Add(this.vahed_per_floor);
             this.radPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel9.Location = new System.Drawing.Point(338, 3);
+            this.radPanel9.Location = new System.Drawing.Point(225, 3);
             this.radPanel9.Name = "radPanel9";
             this.radPanel9.Padding = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.radPanel9.Size = new System.Drawing.Size(105, 32);
@@ -1330,7 +1330,7 @@
             this.kaf_type.Font = new System.Drawing.Font("B Nazanin", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.kaf_type.FormattingEnabled = true;
             this.kaf_type.IntegralHeight = false;
-            this.kaf_type.Location = new System.Drawing.Point(115, 3);
+            this.kaf_type.Location = new System.Drawing.Point(223, 3);
             this.kaf_type.Name = "kaf_type";
             this.kaf_type.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.kaf_type.Size = new System.Drawing.Size(104, 28);
@@ -1341,7 +1341,7 @@
             this.radPanel13.BackColor = System.Drawing.Color.White;
             this.radPanel13.Controls.Add(this.total_floor);
             this.radPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel13.Location = new System.Drawing.Point(116, 3);
+            this.radPanel13.Location = new System.Drawing.Point(447, 3);
             this.radPanel13.Name = "radPanel13";
             this.radPanel13.Padding = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.radPanel13.Size = new System.Drawing.Size(105, 32);
@@ -1353,7 +1353,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 0);
+            this.label9.Location = new System.Drawing.Point(333, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(106, 38);
             this.label9.TabIndex = 242;
@@ -1363,7 +1363,7 @@
             // la23
             // 
             this.la23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.la23.Location = new System.Drawing.Point(449, 0);
+            this.la23.Location = new System.Drawing.Point(114, 0);
             this.la23.Name = "la23";
             this.la23.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.la23.Size = new System.Drawing.Size(105, 38);
@@ -1387,7 +1387,7 @@
             this.radPanel14.BackColor = System.Drawing.Color.White;
             this.radPanel14.Controls.Add(this.total_vahed);
             this.radPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel14.Location = new System.Drawing.Point(560, 3);
+            this.radPanel14.Location = new System.Drawing.Point(3, 3);
             this.radPanel14.Name = "radPanel14";
             this.radPanel14.Padding = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.radPanel14.Size = new System.Drawing.Size(105, 32);
@@ -1411,7 +1411,7 @@
             this.tableLayoutPanel11.Controls.Add(this.la23, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.radPanel14, 0, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(451, 3);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 1;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1421,7 +1421,7 @@
             // la24
             // 
             this.la24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.la24.Location = new System.Drawing.Point(3, 0);
+            this.la24.Location = new System.Drawing.Point(558, 0);
             this.la24.Name = "la24";
             this.la24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.la24.Size = new System.Drawing.Size(107, 38);
@@ -1432,7 +1432,7 @@
             // label17
             // 
             this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label17.Location = new System.Drawing.Point(227, 0);
+            this.label17.Location = new System.Drawing.Point(336, 0);
             this.label17.Name = "label17";
             this.label17.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label17.Size = new System.Drawing.Size(105, 38);
@@ -1467,8 +1467,9 @@
             this.tableLayoutPanel12.Controls.Add(this.kaf_type, 2, 0);
             this.tableLayoutPanel12.Controls.Add(this.label9, 3, 0);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(677, 3);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel12.Size = new System.Drawing.Size(442, 38);
@@ -1486,6 +1487,7 @@
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 1, 0);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(8, 228);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel10.Size = new System.Drawing.Size(1122, 44);
